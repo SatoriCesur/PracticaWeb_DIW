@@ -11,15 +11,25 @@
 body{
   background-color: var(--primary-backgroundColor);
   position: relative;
-  
-  .sombra{
-  background: linear-gradient(rgba(0, 0, 0, 0.459));
-  z-index: 90;
+}
+
+.sombra{
+  background: rgba(0, 0, 0, 0.637);
+  z-index: 0;
   height: 100vh;
   width: 100%;
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   opacity: 0;
-  }
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sombra.activada{
+  z-index: 4;
+  opacity: 1;
+  pointer-events: all;
 }
 
 *{
@@ -36,61 +46,78 @@ body{
   width: 400px;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.677);
-  position: absolute;
-  right: 0;
-  z-index: 5;
   position: fixed;
+  right: -100%;
+  top: 0;
+  z-index: 5;
   padding: 2rem;
   display: flex;
   gap: 3rem;
   flex-direction: column;
   box-shadow: -4px 0 20px black;
+  transition: right 0.5s ease;
+}
 
-  h3{
-    font-size: 2rem;
-    position: relative;
-  }
-  h3::after{
-    content: "x";
-    position: absolute;
-    right: 0;
-  }
-  .contenedor_canvas{
-    display: flex;
-    align-items: start;
-    justify-content: center;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .contenedores_canvas{
-    border: 1px solid var(--rosa-intenso);
-    width: 100%;;
-    border-radius: 0.7rem;
-    background:rgba(70, 70, 70, 0.529);
-    display: flex;
-    gap: 1rem;
-    padding: 0.6rem;
+.canvas.show{
+  right: 0;
+}
 
-    .canvas_logo{
-    background:var(--gradient-boton);
-    border-radius: 0.4rem;
-    height: 50px;
-    width: 50px;
-    font-size: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    }
+.canvas h3{
+  font-size: 2rem;
+  position: relative;
+}
 
-    p{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+.canvas h3::after {
+  content: "x";
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+  display: inline-block; /* ok */
+  transition: transform 0.3s ease; /* para que la rotación sea suave */
+}
+.canvas h3:hover::after{
+    transform: rotate(180deg);  
+    top: 0.7rem;  
   }
 
+.canvas .contenedor_canvas{
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
 
+.canvas .contenedores_canvas{
+  border: 1px solid var(--rosa-intenso);
+  width: 100%;
+  border-radius: 0.7rem;
+  background:rgba(70, 70, 70, 0.529);
+  display: flex;
+  gap: 1rem;
+  padding: 0.6rem;
+  position: relative;
+
+  &:hover{
+    right: 0.5rem;
+  }
+}
+
+.canvas .canvas_logo{
+  background:var(--gradient-boton);
+  border-radius: 0.4rem;
+  height: 50px;
+  width: 50px;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.canvas .contenedores_canvas p{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 }
 
@@ -184,6 +211,7 @@ nav.contenedor{
   .btn_seccion1:hover {
   box-shadow: 5px 5px 15px #e54258; 
   bottom: 0.2rem;
+  cursor: pointer;
 }
 
 }
